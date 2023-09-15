@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # docker-rs
 Optional
 =======
