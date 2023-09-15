@@ -23,7 +23,7 @@ podTemplate(yaml: '''
   node(POD_LABEL) {
       stage('Get project') {
         echo 'Getting project >> >> >>'
-        git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-r'
+        git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
       }
       stage('Build Docker image') {
         echo 'Hellooo ! 4  !'
