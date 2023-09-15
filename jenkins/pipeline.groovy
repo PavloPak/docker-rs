@@ -1,0 +1,50 @@
+/*
+“Docker-outside-of-Docker”: runs a Docker-based build by connecting a Docker client inside the pod to the host daemon.
+*/
+podTemplate(yaml: '''
+              apiVersion: v1
+              kind: Pod
+              spec:
+                containers:
+                - name: docker
+                  image: docker:19.03.1
+                  command:
+                  - sleep
+                  args:
+                  - 99d
+                  volumeMounts:
+                  - name: dockersock
+                    mountPath: /var/run/docker.sock
+                volumes:
+                - name: dockersock
+                  hostPath:
+                    path: /var/run/docker.sock
+''') {
+  node(POD_LABEL) {
+      stage('Get project') {
+        echo 'Getting project >> >> >>'
+        git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-r'
+      }
+      stage('Build Docker image') {
+        echo 'Hellooo ! 4  !'
+        container('docker') {
+          sh "docker build -t ppak4dev/udemy-dmeo:${env.BUILD_NUMBER} . "
+        }
+      }
+    withCredentials([usernamePassword(credentialsId: 'Docker-Hub-U-P', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+      stage('Push image') {
+        /* Push image using withRegistry. */
+          container('docker') {
+          sh '''
+            set +x
+            if [ ${PUSH_IMAGE} == "true" ]; then
+                 echo "$DOCKER_REGISTRY_PWD" | docker login -u "$DOCKER_REGISTRY_USER" --password-stdin                              
+                 echo Login Completed    
+                 docker push ppak4dev/udemy-dmeo:${BUILD_NUMBER}
+            fi;   
+          '''
+         }
+      }
+     }
+    }
+  }
