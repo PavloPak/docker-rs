@@ -28,7 +28,10 @@ podTemplate(yaml: '''
       stage('Build Docker image') {
         echo 'Hellooo ! 4  !'
         container('docker') {
-          sh "docker build -t ppak4dev/udemy-dmeo:${env.BUILD_NUMBER} . "
+          sh "docker build -t ppak4dev/udemy-dmeo-client:${env.BUILD_NUMBER} ./client "
+          sh "docker build -t ppak4dev/udemy-dmeo-nginx:${env.BUILD_NUMBER} ./nginx "
+          sh "docker build -t ppak4dev/udemy-dmeo-server:${env.BUILD_NUMBER} ./server "
+          sh "docker build -t ppak4dev/udemy-dmeo-worker:${env.BUILD_NUMBER} ./worker "
         }
       }
     withCredentials([usernamePassword(credentialsId: 'Docker-Hub-U-P', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
