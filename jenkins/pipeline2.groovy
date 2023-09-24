@@ -4,8 +4,10 @@ pipeline {
   }
   stages {
     stage('Get project') {
-        echo 'Getting project >> >> >>'
-        git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
+        steps {
+          echo 'Getting project >> >> >>'
+          git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
+        }
       }
   }
 }
