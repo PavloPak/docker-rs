@@ -1,8 +1,6 @@
 pipeline {
   agent {
-    kubernetes {
-      inheritFrom 'docker-worker-pod'
-    }
+    label 'docker-worker-pod'  
   }
   stages {
     stage('Get project') {
@@ -13,11 +11,13 @@ pipeline {
     }
     stage('Build Docker image') {
       steps {
-        echo 'Hellooo ! 4  !'
-        sh "docker build -t ppak4dev/udemy-dmeo-client:${env.BUILD_NUMBER} ./client "
-        sh "docker build -t ppak4dev/udemy-dmeo-nginx:${env.BUILD_NUMBER} ./nginx "
-        sh "docker build -t ppak4dev/udemy-dmeo-server:${env.BUILD_NUMBER} ./server "
-        sh "docker build -t ppak4dev/udemy-dmeo-worker:${env.BUILD_NUMBER} ./worker "
+        container('docker') {
+          echo 'Hellooo ! 4  !'
+          sh "docker build -t ppak4dev/udemy-dmeo-client:${env.BUILD_NUMBER} ./client "
+          sh "docker build -t ppak4dev/udemy-dmeo-nginx:${env.BUILD_NUMBER} ./nginx "
+          sh "docker build -t ppak4dev/udemy-dmeo-server:${env.BUILD_NUMBER} ./server "
+          sh "docker build -t ppak4dev/udemy-dmeo-worker:${env.BUILD_NUMBER} ./worker "
+        }
       }
     }
   }
