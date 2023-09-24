@@ -6,7 +6,7 @@ pipeline {
     stage('Get project') {
       steps {
         echo 'Getting project >> >> >>'
-        curl zalenium-jenkins.zalenium.svc.cluster.local/wd/hub
+        curl 'http://zalenium-jenkins.zalenium.svc.cluster.local/wd/hub'
         //git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
       }
     }
