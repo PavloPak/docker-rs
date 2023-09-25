@@ -7,12 +7,11 @@ pipeline {
       steps {
         echo 'Getting project >> >> >>'
         git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/zalando-ts'
-        sh 'echo "$(mvn -v)"'
       }
     }
     stage('Run tests') {
       steps {
-        container('docker') {
+        container('maven') {
           echo 'Starting'
           sh "ls -la"
           sh "mvn clean test"
