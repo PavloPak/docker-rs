@@ -2,13 +2,10 @@ pipeline {
   agent {
     label 'docker-worker-pod'  
   }
-  environment {
-    TAG = '${env.BUILD_NUMBER}'
-  }
   stages {
     stage('Get project') {
       steps {
-        echo 'Getting project >> >> >> "$env.TAG"'
+        echo 'Getting project >> >> >>'
         git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
       }
     }
