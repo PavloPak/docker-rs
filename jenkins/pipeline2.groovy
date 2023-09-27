@@ -8,22 +8,24 @@ pipeline {
   stages {
     stage('Get project') {
       steps {
-        echo 'Getting project >> >> >>'
+        echo 'Getting project >> >> >> $TAG'
         git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
       }
     }
     stage('Build Docker image') {
-        echo 'Hellooo ! 4  !'
-        container('docker') {
-          sh "docker build -t ppak4dev/udemy-dmeo-client:${env.BUILD_NUMBER} ./client "
-          sh "docker build -t ppak4dev/udemy-dmeo-nginx:${env.BUILD_NUMBER} ./nginx "
-          sh "docker build -t ppak4dev/udemy-dmeo-server:${env.BUILD_NUMBER} ./server "
-          sh "docker build -t ppak4dev/udemy-dmeo-worker:${env.BUILD_NUMBER} ./worker "
-        }
-      }
+       steps {
+          echo 'Hellooo ! 4  !'
+          container('docker') {
+            sh "docker build -t ppak4dev/udemy-dmeo-client:${env.BUILD_NUMBER} ./client "
+            sh "docker build -t ppak4dev/udemy-dmeo-nginx:${env.BUILD_NUMBER} ./nginx "
+            sh "docker build -t ppak4dev/udemy-dmeo-server:${env.BUILD_NUMBER} ./server "
+            sh "docker build -t ppak4dev/udemy-dmeo-worker:${env.BUILD_NUMBER} ./worker "
+          }
+         }
+       }
     withCredentials([usernamePassword(credentialsId: 'Docker-Hub-U-P', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
       stage('Push image') {
-        /* Push image using withRegistry. */
+        steps {
           container('docker') {
           sh '''
             set +x
@@ -37,6 +39,7 @@ pipeline {
             fi;   
           '''
          }
+        }  
       }
      }
   }
