@@ -24,8 +24,8 @@ pipeline {
          }
        }
     stage('Push image') {
-      withCredentials([usernamePassword(credentialsId: 'Docker-Hub-U-P', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) { 
         steps {
+          withCredentials([usernamePassword(credentialsId: 'Docker-Hub-U-P', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) { 
           container('docker') {
             sh '''
             set +x
