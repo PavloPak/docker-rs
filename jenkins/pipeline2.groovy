@@ -2,6 +2,9 @@ pipeline {
   agent {
     label 'docker-worker-pod'  
   }
+  environment {
+    TAG = '${env.BUILD_NUMBER}'
+  }
   stages {
     stage('Get project') {
       steps {
