@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Get project') {
       steps {
-        echo 'Getting project >> >> >> $TAG'
+        echo 'Getting project >> >> >> "$env.TAG"'
         git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
       }
     }
