@@ -9,6 +9,15 @@ pipeline {
         git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
       }
     }
+    stage('Check kubectl') {
+       steps {
+          echo 'Trying to check ----  '
+          container('kube-cli') {
+            sh "kubectl --version"
+            sh "kubectl get pods --all-namespaces"
+          }
+         }
+       }
     stage('Build Docker image') {
        steps {
           echo 'Hellooo ! 4  !'
