@@ -14,8 +14,9 @@ pipeline {
           echo 'Trying to check ----  '
           container('kube-cli') {
             echo 'Inside Kube -- '
-            sh "kubectl --version"
+            sh "kubectl --help"
             sh "kubectl get pods --all-namespaces"
+            sh "kubectl get svc -n devops-tools"
           }
          }
        }
