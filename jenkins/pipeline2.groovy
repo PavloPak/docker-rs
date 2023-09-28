@@ -23,7 +23,6 @@ pipeline {
        }
       }
      }
-    }
     stage('Build Docker image') {
        steps {
           echo 'Hellooo ! 4  !'
