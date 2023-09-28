@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Check kubectl') {
        steps {
-         withCredentials([file(credentialsId: 'kubeconfig-credentials', variable: 'KUBECONFIG'))]) {
+         withCredentials([file(credentialsId: 'kubeconfig-credentials', variable: 'KUBECONFIG')]) {
           echo 'Trying to check ----  '
           container('kube-cli') {
             echo 'Inside Kube -- '
