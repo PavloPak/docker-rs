@@ -30,7 +30,6 @@ pipeline {
                echo "$DOCKER_REGISTRY_PWD" | docker login -u "$DOCKER_REGISTRY_USER" --password-stdin                              
                echo Login Completed    
                docker push ppak4dev/udemy-dmeo-client:"${BUILD_NUMBER}"
-               // docker push ppak4dev/udemy-dmeo-nginx:"${BUILD_NUMBER}"
                docker push ppak4dev/udemy-dmeo-server:"${BUILD_NUMBER}"
                docker push ppak4dev/udemy-dmeo-worker:"${BUILD_NUMBER}"
             fi;   
