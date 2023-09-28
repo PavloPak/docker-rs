@@ -19,10 +19,11 @@ pipeline {
             echo 'Context is configured <<<<<<<<<<<<<<<<< ----  '
             sh "kubectl get pods --all-namespaces"
             sh "kubectl get svc -n devops-tools"
-          }
-         }
-         }
+        }
        }
+      }
+     }
+    }
     stage('Build Docker image') {
        steps {
           echo 'Hellooo ! 4  !'
