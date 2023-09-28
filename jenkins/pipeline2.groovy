@@ -11,11 +11,11 @@ pipeline {
     }
     stage('Check kubectl') {
        steps {
-         withCredentials([file(credentialsId: 'kubeconfig-credentials', variable: 'KUBECONFIG')]) {
+         withCredentials([file(credentialsId: 'kubeconfig-credentials', variable: 'config_file')]) {
           echo 'Trying to check ----  '
           container('kube-cli') {
             echo 'Inside Kube -- '
-            sh 'kubectl config --kubeconfig="${KUBECONFIG}"'
+            sh 'kubectl config --kubeconfig="${config_file}"'
             echo 'Context is configured <<<<<<<<<<<<<<<<< ----  '
             sh "kubectl get pods --all-namespaces"
             sh "kubectl get svc -n devops-tools"
