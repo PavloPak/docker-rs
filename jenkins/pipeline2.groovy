@@ -15,7 +15,7 @@ pipeline {
           echo 'Trying to check ----  '
           container('kube-cli') {
             echo 'Inside Kube -- '
-            sh 'kubectl config current-contex'
+            sh 'kubectl config current-context'
             sh 'kubectl config set-context --kubeconfig="${config_file}"'
             echo 'Context is configured <<<<<<<<<<<<<<<<< ----  '
             sh "kubectl get pods --all-namespaces"
