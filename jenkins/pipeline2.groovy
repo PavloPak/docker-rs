@@ -11,6 +11,7 @@ pipeline {
     }
     stage('Check kubectl') {
        steps {
+         withKubeConfig([credentialsId: 'jenkins-admin-token', serverUrl: 'https://10.245.0.10']) {
           echo 'Trying to check ----  '
           container('kube-cli') {
             echo 'Inside Kube -- '
@@ -18,6 +19,7 @@ pipeline {
             sh "kubectl get pods --all-namespaces"
             sh "kubectl get svc -n devops-tools"
           }
+         }
          }
        }
     stage('Build Docker image') {
