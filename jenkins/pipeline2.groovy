@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Check kubectl') {
        steps {
-         withKubeConfig([credentialsId: 'jenkins-admin-token', serverUrl: 'https://10.245.0.10']) {
+         withKubeConfig([credentialsId: 'jenkins-admin-token', serverUrl: 'https://10.245.0.1:443']) {
           echo 'Trying to check ----  '
           container('kube-cli') {
             echo 'Inside Kube -- '
