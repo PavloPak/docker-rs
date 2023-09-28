@@ -11,11 +11,12 @@ pipeline {
     }
     stage('Check kubectl') {
        steps {
-         withKubeConfig([credentialsId: 'jenkins-admin-token', serverUrl: 'https://10.245.0.1:443']) {
+         withCredentials([file(credentialsId: 'kubeconfig-credentials')]) {
           echo 'Trying to check ----  '
           container('kube-cli') {
             echo 'Inside Kube -- '
-            sh "kubectl --help"
+            sh "kubectl config use-context jenkins-local-context"
+            echo 'Context is configured <<<<<<<<<<<<<<<<< ----  '
             sh "kubectl get pods --all-namespaces"
             sh "kubectl get svc -n devops-tools"
           }
