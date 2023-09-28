@@ -15,7 +15,7 @@ pipeline {
           echo 'Trying to check ----  '
           container('kube-cli') {
             echo 'Inside Kube -- '
-            sh "kubectl config use-context jenkins-local-context"
+            sh 'kubectl config --kubeconfig="${KUBECONFIG}"'
             echo 'Context is configured <<<<<<<<<<<<<<<<< ----  '
             sh "kubectl get pods --all-namespaces"
             sh "kubectl get svc -n devops-tools"
