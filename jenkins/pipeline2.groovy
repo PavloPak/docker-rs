@@ -6,6 +6,7 @@ pipeline {
     stage('Get project') {
       steps {
         echo 'Getting project >> >> >>'
+        sh 'kubectl --help'
         git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
       }
     }
