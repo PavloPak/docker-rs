@@ -1,11 +1,18 @@
+def getCommitHash() {
+  return "hash_334kjh4334nkjn"
+}
+
 pipeline {
   agent {
     label 'docker-worker-pod'  
   }
+  environment {
+    GIT_HASH = getCommitHash()
+  }
   stages {
     stage('Get project') {
       steps {
-        echo 'Getting project >> >> >>'
+        echo "Getting project >> >> >> ${GIT_HASH}"
         git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
       }
     }
