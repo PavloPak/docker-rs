@@ -13,6 +13,7 @@ pipeline {
     stage('Get project') {
       steps {
         echo "Getting project >> >> >> ${GIT_HASH}"
+        sh 'echo "${GIT_HASH}"'
         git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/PavloPak/docker-rs'
       }
     }
