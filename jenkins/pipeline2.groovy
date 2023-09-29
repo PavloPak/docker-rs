@@ -1,5 +1,5 @@
 def getCommitHash() {
-  return "hash_334kjh4334nkjn"
+  return "${env.GIT_COMMIT}"
 }
 
 pipeline {
