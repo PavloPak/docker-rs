@@ -4,7 +4,7 @@ metadata:
   name: client-pod
   labels:
     component: web
-  namespace: udemy  
+  namespace: devops-tools  
 spec:
   replicas: 2
   selector:
